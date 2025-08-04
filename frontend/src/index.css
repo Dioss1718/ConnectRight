@@ -1,34 +1,58 @@
+
 body {
+  /* Make the body fill the entire screen and remove default margins. */
   height: 100vh;
   margin: 0;
+  /* Use a clean, simple font and a default text color. */
   font-family: sans-serif;
-  position: relative;
   color: white;
+  /* Set a transparent background so the video can show through. */
   background-color: transparent; 
+  position: relative;
 }
 
+/*
+ * The main container for all our app's content.
+ */
 #root {
   position: relative;
   height: 100vh;
+  /* We'll place the app content on top of the video background. */
   z-index: 1; 
 }
 
+/*
+ * Background Video
+ * This container ensures the video always covers the entire screen.
+ */
 .video-container {
+  /* We fix it in place so it doesn't move when you scroll. */
   position: fixed; 
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  /* And send it to the very back layer. */
   z-index: -1; 
 }
 
+/*
+ * The video element itself.
+ */
 #bg-video {
+  /* The video stretches to fill the container, and `object-fit: cover` ensures it doesn't get distorted. */
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* This darkens the video a bit to make the text on top more readable. */
   filter: brightness(70%);
 }
 
+/*
+ * The main app wrapper.
+ * We're using a flexible box to perfectly center all the content.
+ */
 .app-container {
   display: flex;
   align-items: center;
@@ -39,11 +63,15 @@ body {
   box-sizing: border-box;
 }
 
+/*
+ * The 'Join Chat' box where users log in.
+ */
 .join-chat-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  /* A soft, warm background color with rounded corners and a shadow to make it stand out. */
   background-color: #a1525f;
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -51,6 +79,7 @@ body {
   max-width: 28rem;
 }
 
+/* Heading for the 'Join Chat' box. */
 .join-chat-title {
   font-size: 1.875rem;
   font-weight: 700;
@@ -58,6 +87,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* The input fields. */
 .join-chat-input {
   width: 100%;
   padding: 0.75rem;
@@ -65,48 +95,59 @@ body {
   border: 1px solid #C5757C;
   border-radius: 0.5rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
   background-color: #C5757C;
+  /* A subtle transition for a smooth visual effect when you focus on it. */
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* The 'Join Chat' button. */
 .join-chat-button {
   width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
   background-color: #683a43;
   color: #C5757C;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* Make the color change smoothly on hover. */
+  transition: background-color 0.3s ease-in-out;
 }
 
+/* The hover effect for the button. */
 .join-chat-button:hover {
   background-color: #462037;
 }
 
+/*
+ * The main chat window.
+ */
 .chat-window-container {
   display: flex;
   flex-direction: column;
-  background-color: rgba(161, 82, 95, 0.7);
-  border-radius: 0.75rem; 
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   width: 90%;
   max-width: 1200px; 
   height: 90vh; 
   max-height: 900px; 
   overflow: hidden; 
+  /* A semi-transparent background, rounded corners, and a shadow. */
+  background-color: rgba(161, 82, 95, 0.7);
+  border-radius: 0.75rem; 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+/*
+ * The header at the top of the chat.
+ */
 .chat-header {
   flex-shrink: 0;
   height: auto;
-  background-color: #462037;
-  color: #c5757c;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #462037;
+  color: #c5757c;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -124,13 +165,19 @@ body {
   font-weight: 700;
 }
 
+/*
+ * The main body of the chat where messages appear.
+ */
 .chat-body {
+  /* This section takes up all the remaining space. */
   flex: 1; 
   padding: 1rem;
+  /* A scrollbar appears if there are too many messages to fit. */
   overflow-y: auto; 
   background-color: rgba(161, 82, 95, 0.3); 
 }
 
+/* Custom scrollbar styling for webkit browsers. */
 .chat-body::-webkit-scrollbar {
   width: 8px;
 }
@@ -149,11 +196,15 @@ body {
   background: #683a46;
 }
 
+/*
+ * Individual message rows.
+ */
 .message-row {
   display: flex;
   margin-bottom: 0.75rem;
 }
 
+/* Aligning messages based on who sent them. */
 .message-row.sent {
   justify-content: flex-end;
 }
@@ -162,6 +213,9 @@ body {
   justify-content: flex-start;
 }
 
+/*
+ * The chat bubbles themselves.
+ */
 .message-bubble {
   max-width: 70%;
   padding: 0.75rem;
@@ -169,18 +223,25 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+/* The styles for messages you send. */
 .message-bubble.sent-bubble {
   background-color: #f9aaad;
   color: #462037;
+  /* We give it a unique shape by removing the bottom-right border radius. */
   border-bottom-right-radius: 0;
 }
 
+/* The styles for messages you receive. */
 .message-bubble.received-bubble {
   background-color: #f9aaad;
   color: #1f2937;
+  /* We give it a unique shape by removing the bottom-left border radius. */
   border-bottom-left-radius: 0;
 }
 
+/*
+ * Details inside the message bubbles.
+ */
 .message-author {
   font-weight: 700;
   font-size: 0.875rem;
@@ -199,6 +260,7 @@ body {
   color:#462037;
 }
 
+/* Color for the timestamps. */
 .message-time.sent-time {
   color: #a1525f;
 }
@@ -207,18 +269,24 @@ body {
   color: #6b7280;
 }
 
+/*
+ * The footer at the bottom of the chat.
+ */
 .chat-footer {
   flex-shrink: 0; 
   padding: 1rem;
   display: flex;
   align-items: center;
   background-color: #462037;
+  /* Rounded corners to match the rest of the chat window. */
   border-bottom-left-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
+/* The input field for typing. */
 .chat-input {
+  /* It expands to take up all the space available. */
   flex: 1;
   padding: 0.75rem;
   border: 1px solid #683a46;
@@ -228,21 +296,23 @@ body {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* The 'Send' button. */
 .send-button {
-  background-color: #C5757C;
-  color: #fff;
   padding: 0.75rem;
+  border: none;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
-  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #C5757C;
+  color: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease-in-out;
 }
 
+/* The hover effect for the button. */
 .send-button:hover {
   background-color: #a1525f;
 }
